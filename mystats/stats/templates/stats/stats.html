@@ -1,0 +1,52 @@
+{% extends "stats/home.html" %}
+
+
+{% block content %}
+<script>
+    function loader()
+    {
+    var d = document.getElementById("stat");
+    var displaytext= d.options[d.selectedIndex].text;
+    console.log(displaytext);
+    const ele = document.getElementById('holder');
+    if (displaytext == 'Points ranking') {
+    ele.innerHTML=
+    `
+    <h2>${displaytext}</h2>
+    {% for i in one_man %}
+        <li>{{i}}</li>
+    {% endfor %}
+    `;
+    }
+
+    else if(displaytext == '2 man win rate'){
+    ele.innerHTML=
+    `
+    <h2>${displaytext}</h2>
+    {% for i in two_man %}
+        <li>{{i}}</li>
+    {% endfor %}
+    `;
+
+    }
+    else if (displaytext == '3 man win rate'){
+        ele.innerHTML=
+    `
+    <h2>${displaytext}</h2>
+    {% for i in three_man %}
+        <li>{{i}}</li>
+    {% endfor %}
+    `;
+
+    }
+    }
+</script>
+
+<select id="stat" onchange="loader();">
+    <option>Select stat</option>
+    <option>Points ranking</option>
+    <option>2 man win rate</option>
+    <option>3 man win rate</option>
+</select>
+<div id="holder"></div>
+{% endblock %}

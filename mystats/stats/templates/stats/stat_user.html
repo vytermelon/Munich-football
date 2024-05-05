@@ -1,0 +1,57 @@
+
+
+
+{% block content %}
+    <h1>Munich Football</h1>
+    <h2>Choose Stat</h2>
+<script>
+    function loader()
+    {
+    var d = document.getElementById("stat");
+    var displaytext= d.options[d.selectedIndex].text;
+    console.log(displaytext);
+    const ele = document.getElementById('holder');
+    if (displaytext == 'Top 5 Points ranking') {
+    ele.innerHTML=
+    `
+    <h2>${displaytext}</h2>
+        <ol>
+    {% for i in one_man %}
+
+        <li>{{i}}</li>
+
+    {% endfor %}
+       </ol>
+    `;
+    }
+
+    else if(displaytext == '2 man win rate'){
+    ele.innerHTML=
+    `
+    <h2>${displaytext}</h2>
+    {% for i in two_man %}
+        <li>{{i}}</li>
+    {% endfor %}
+    `;
+
+    }
+    else if (displaytext == '3 man win rate'){
+        ele.innerHTML=
+    `
+    <h2>${displaytext}</h2>
+    {% for i in three_man %}
+        <li>{{i}}</li>
+    {% endfor %}
+    `;
+
+    }
+    }
+</script>
+
+<select id="stat" onchange="loader();">
+    <option>Select stat</option>
+    <option>Top 5 Points ranking</option>
+    <option>2 man win rate</option>
+</select>
+<div id="holder"></div>
+{% endblock %}

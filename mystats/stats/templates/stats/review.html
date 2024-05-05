@@ -1,0 +1,32 @@
+{% extends "stats/home.html" %}
+
+
+{% block content %}
+<style>
+    .N {
+        color: white; /* Set text color to black */
+        background: red;
+    }
+    /* Style for input tags with class "W" */
+    input.W, input.L {
+        border: 2px solid black; /* Black border for all inputs */
+        padding: 5px;
+        display: block;
+        box-sizing: border-box; /* Include padding and border in width calculation */
+        margin-bottom: 10px; /* Space between rows */
+    }
+
+    /* Style for all labels */
+    button{
+    display: block;
+    }
+</style>
+<p>Match id: {{latest}}</p>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Submit1</button>
+
+</form>
+
+{% endblock %}

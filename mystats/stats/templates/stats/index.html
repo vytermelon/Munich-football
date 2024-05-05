@@ -1,0 +1,139 @@
+{% extends "stats/home.html" %}
+
+
+{% block content %}
+
+<style>
+#id_draw,#id_team1,#id_team2{
+visibility:hidden;
+}
+label[for='id_draw'],[for='id_team1'],[for='id_team2']
+{
+visibility:hidden;
+}
+    .styled-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .styled-table th, .styled-table td {
+        border: 1px solid #dddddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .styled-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .styled-table th {
+        background-color: #e6e6e6;
+    }
+
+    .styled-table tr:last-child td {
+        border-bottom: 2px solid #009879;
+    }
+</style>
+<script>
+    window.onload = function() {
+    for (let i = 1; i <= 7; i=i+2) {
+        var d = document.getElementById(i);
+        var displaytext= d.innerText;
+        var d2 = document.getElementById(i+1);
+        var displaytext2= d2.innerText;
+
+        if (Number(displaytext) > Number(displaytext2)) {
+        const ele = document.getElementById(i);
+        ele.style.background="#90EE90";
+        }
+        else if (Number(displaytext) < Number(displaytext2)) {
+
+        const ele = document.getElementById(i+1);
+        ele.style.background="#90EE90";
+        }
+        }
+
+    }
+</script>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" name="submit" id="togglee" style="visibility:hidden;">Save to Database</button>
+        <button type="submit" name="stat">Check Team stats</button>
+    </form>
+<input type="button" id="toggler" value="Admin" onClick="action();" />
+<input type="text" id="pass" />
+
+<script>
+    var hidden = false;
+    function action() {
+        hidden = !hidden;
+        if(hidden && document.getElementById('pass').value == "pass") {
+            document.getElementById('togglee').style.visibility = 'visible';
+            document.getElementById('id_draw').style.visibility = 'visible';
+            document.getElementById('id_team1').style.visibility = 'visible';
+            document.getElementById('id_team2').style.visibility = 'visible';
+            document.querySelector("label[for=id_draw]").style.visibility = 'visible';
+            document.querySelector("label[for=id_team1]").style.visibility = 'visible';
+            document.querySelector("label[for=id_team2]").style.visibility = 'visible';
+
+        } else {
+            document.getElementById('togglee').style.visibility = 'hidden';
+            document.getElementById('id_draw').style.visibility = 'hidden';
+            document.getElementById('id_team1').style.visibility = 'hidden';
+            document.getElementById('id_team2').style.visibility = 'hidden';
+            document.querySelector("label[for=id_draw]").style.visibility = 'hidden';
+            document.querySelector("label[for=id_team1]").style.visibility = 'hidden';
+            document.querySelector("label[for=id_team2]").style.visibility = 'hidden';
+        }
+    }
+</script>
+{% if one1%}
+<table class="styled-table">
+    <tr>
+        <th>   </th>
+        <th style="text-align: center;">Team 1</th>
+        <th>   </th>
+        <th style="text-align: center;">Team 2</th>
+        <th>   </th>
+    </tr>
+    <tr>
+        <td>Rating Type</td>
+        <td>Player</td>
+        <td>Win rate</td>
+        <td>Player</td>
+        <td>Win rate</td>
+    </tr>
+    <tr>
+        <td>Highest One man Points</td>
+        <td>{{one1.1}}</td>
+        <td id="1">{{one1.0}}</td>
+        <td>{{one2.1}}</td>
+        <td id="2">{{one2.0}}</td>
+    </tr>
+    <tr>
+        <td>Highest Two man Wins</td>
+        <td>{{two1.1}}</td>
+        <td id="3">{{two1.0}}</td>
+        <td>{{two2.1}}</td>
+        <td id="4">{{two2.0}}</td>
+    </tr>
+    <tr>
+        <td>Highest Three man Wins</td>
+        <td>{{ three1.1 }}</td>
+        <td id="5">{{ three1.0 }}</td>
+        <td>{{ three2.1 }}</td>
+        <td id="6">{{ three2.0 }}</td>
+    </tr>
+        <tr>
+        <td>Team average</td>
+        <td>Team 1</td>
+        <td id="7">{{ one1.2 }}</td>
+        <td>Team 2</td>
+        <td id="8">{{ one2.2 }}</td>
+    </tr>
+
+</table>
+
+{% endif %}
+{% endblock %}

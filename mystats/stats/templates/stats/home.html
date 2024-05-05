@@ -1,0 +1,22 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Munich Football</title>
+    <style>
+    </style>
+</head>
+<body>
+<div>
+    <h1>Munich Football</h1>
+
+        <button onclick="location.href='{% url 'index' %}'">Home</button>
+        <button onclick="location.href='{% url 'stats' %}'">Check stats</button>
+
+
+</div>
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
